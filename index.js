@@ -22,7 +22,10 @@ db.on(
 db.once("open", () => {
   console.log("Connected to MongoDB");
 });
+
 //listening port
 app.listen(process.env.PORT_SERVER, () => {
   console.log("Server is running on port " + process.env.PORT_SERVER);
 });
+
+module.exports = app;
