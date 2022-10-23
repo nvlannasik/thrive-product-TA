@@ -17,7 +17,6 @@ const productSchema = new mongoose.Schema(
       default: Date.now,
     },
   },
-  { collection: "products" },
   { versionKey: false }
 );
 

@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 require("dotenv").config();
-const productRoute = require("./routes/products");
+const productRoute = require("./routes/product");
 
 //middleware
 app.use(bodyParser.json());

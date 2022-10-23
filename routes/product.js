@@ -42,9 +42,9 @@ router.get("/", async (req, res) => {
 
 //GET PRODUCT BY ID
 
-router.get("/:productId", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById({ _id: req.params.id });
     res.status(200).send({
       status: "success",
       message: "Product retrieved successfully",
