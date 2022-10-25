@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 const productRoute = require("./routes/product");
+const logger = require("./utils/logger");
 
 //middleware
 app.use(bodyParser.json());
@@ -15,17 +16,14 @@ app.use("/api/products", productRoute);
 //connect db
 mongoose.connect(process.env.DB_CONNECTION);
 let db = mongoose.connection;
-db.on(
-  "error",
-  console.error.bind(console, "MongoDB connection error: Connection failed")
-);
+db.on("error", logger.error.bind(logger, "MongoDB connection error:"));
 db.once("open", () => {
-  console.log("Connected to MongoDB");
+  logger.info("Connected to MongoDB");
 });
 
 //listening port
 app.listen(process.env.PORT_SERVER, () => {
-  console.log("Server is running on port " + process.env.PORT_SERVER);
+  logger.info(`Server running on port ${process.env.PORT_SERVER}`);
 });
 
 module.exports = app;

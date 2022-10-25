@@ -16,15 +16,19 @@ router.post("/", async (req, res) => {
 
   try {
     const savedProduct = await product.save();
-    logger.info("Product created");
     res.status(201).send({
       status: "success",
       message: "Product created successfully",
       data: savedProduct,
     });
+    logger.info(
+      `[${req.method}] - 201 - ${res.statusMessage} - ${req.originalUrl} - ${req.ip}`
+    );
   } catch (err) {
-    logger.error("WOW ADA ERROR", err);
     res.status(400).send(err);
+    logger.error(
+      `[${req.method}] - 400 - ${res.statusMessage} - ${req.originalUrl} - ${req.ip}`
+    );
   }
 });
 
@@ -33,32 +37,50 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const products = await Product.find();
-    logger.info("Get all products");
+
     res.status(200).send({
       status: "success",
       message: "Products retrieved successfully",
       data: products,
     });
+    logger.info(
+      `[${req.method}] - 200 - ${res.statusMessage} - ${req.originalUrl} - ${req.ip}`
+    );
   } catch (err) {
-    logger.error("WOW ADA ERROR", err);
     res.status(400).send(err);
+    logger.error(
+      `[${req.method}] - 400 - ${res.statusMessage} - ${req.originalUrl} - ${req.ip}`
+    );
   }
 });
 
 //GET PRODUCT BY ID
 
 router.get("/:id", async (req, res) => {
+  const product = await Product.findById(req.params.id);
+  if (!product) {
+    res.status(404).send({
+      status: "error",
+      message: "Product not found",
+    });
+    logger.error(
+      `[${req.method}] - 404 - ${res.statusMessage} - ${req.originalUrl} - ${req.ip}`
+    );
+  }
   try {
-    const product = await Product.findById({ _id: req.params.id });
-    logger.info("Get product by id");
     res.status(200).send({
       status: "success",
       message: "Product retrieved successfully",
       data: product,
     });
+    logger.info(
+      `[${req.method}] - 200 - ${res.statusMessage} - ${req.originalUrl} - ${req.ip}`
+    );
   } catch (err) {
-    logger.error("WOW ADA ERROR", err);
     res.status(400).send(err);
+    logger.error(
+      `[${req.method}] - 400 - ${res.statusMessage} - ${req.originalUrl} - ${req.ip}`
+    );
   }
 });
 
