@@ -2,6 +2,7 @@ const winston = require("winston");
 const { format } = winston;
 var winstonFastRabbitMq = require("winston-fast-rabbitmq");
 require("dotenv").config();
+const config = require("../config/default");
 
 const colors = {
   error: "red",
@@ -23,17 +24,7 @@ const logstashConfig = {
   ),
   transports: [
     new winston.transports.Console(),
-    new winstonFastRabbitMq({
-      host: process.env.RABBITMQ_HOST,
-      port: process.env.RABBITMQ_PORT,
-      username: process.env.RABBITMQ_USERNAME,
-      password: process.env.RABBITMQ_PASSWORD,
-      exchange: process.env.RABBITMQ_EXCHANGE,
-      routingKey: process.env.RABBITMQ_ROUTINGKEY,
-      queue: process.env.RABBITMQ_QUEUE,
-      vhost: process.env.RABBITMQ_VHOST,
-      silent: true,
-    }),
+    new winstonFastRabbitMq(config.get("/rabbitmq")),
   ],
 };
 

@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 const productRoute = require("./routes/product");
 const logger = require("./utils/logger");
+const config = require("./config/default");
 
 //middleware
 app.use(bodyParser.json());
@@ -22,7 +23,7 @@ db.once("open", () => {
 });
 
 //listening port
-app.listen(process.env.PORT_SERVER, () => {
+app.listen(config.get("./server"), () => {
   logger.info(`Server running on port ${process.env.PORT_SERVER}`);
 });
 
