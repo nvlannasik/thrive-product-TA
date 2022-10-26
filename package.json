@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --watchAll",
     "dev": "set NODE_ENV=development && nodemon index.js",
-    "prod": "set NODE_ENV=production && node index.js"
+    "prod": "set NODE_ENV=production && node index.js",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",

@@ -15,9 +15,6 @@ const config = {
     vhost: process.env.RABBITMQ_VHOST,
     silent: true,
   },
-  server: {
-    port: process.env.PORT_SERVER,
-  },
 };
 
 const store = new confidence.Store(config);

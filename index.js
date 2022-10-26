@@ -24,7 +24,7 @@ db.once("open", () => {
 });
 
 //listening port
-app.listen(config.get("./server"), () => {
+app.listen(process.env.PORT_SERVER, () => {
   logger.info(`Server running on port ${process.env.PORT_SERVER}`);
 });
 
